@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29905.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laba_2", "Laba_2\Laba_2.csproj", "{13142CED-B4C7-466D-BD57-6D4E81C8DAC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faker", "Faker\Faker.csproj", "{493568DE-2879-4897-A858-0668D9492DD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitTestFaker", "NUnitTestFaker\NUnitTestFaker.csproj", "{C4C5A8A5-1BAF-4C5E-B123-08416FC0AD70}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{13142CED-B4C7-466D-BD57-6D4E81C8DAC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13142CED-B4C7-466D-BD57-6D4E81C8DAC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13142CED-B4C7-466D-BD57-6D4E81C8DAC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13142CED-B4C7-466D-BD57-6D4E81C8DAC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{493568DE-2879-4897-A858-0668D9492DD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{493568DE-2879-4897-A858-0668D9492DD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{493568DE-2879-4897-A858-0668D9492DD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{493568DE-2879-4897-A858-0668D9492DD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4C5A8A5-1BAF-4C5E-B123-08416FC0AD70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4C5A8A5-1BAF-4C5E-B123-08416FC0AD70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4C5A8A5-1BAF-4C5E-B123-08416FC0AD70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4C5A8A5-1BAF-4C5E-B123-08416FC0AD70}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F58B4959-4348-43F4-8F78-146C3DC32127}
+	EndGlobalSection
+EndGlobal
