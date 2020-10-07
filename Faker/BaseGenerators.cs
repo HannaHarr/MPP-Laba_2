@@ -11,13 +11,7 @@ namespace Faker
             return context.Random.Next() > (int.MaxValue / 2);
         }
     }
-    public class CharGenerator : TypedValueGenerator<char>
-    {
-        protected override char Generate(GeneratorContext context)
-        {
-            return (char)context.Random.Next(char.MinValue, char.MaxValue);
-        }
-    }
+    
     public class ByteGenerator : TypedValueGenerator<byte>
     {
         protected override byte Generate(GeneratorContext context)
@@ -30,13 +24,6 @@ namespace Faker
         protected override decimal Generate(GeneratorContext context)
         {
             return (decimal)context.Random.NextDouble();
-        }
-    }
-    public class DoubleGenerator : TypedValueGenerator<double>
-    {
-        protected override double Generate(GeneratorContext context)
-        {
-            return context.Random.NextDouble();
         }
     }
     public class FloatGenerator : TypedValueGenerator<float>
@@ -57,7 +44,7 @@ namespace Faker
     {
         protected override long Generate(GeneratorContext context)
         {
-            return (long)context.Random.Next();
+            return context.Random.Next();
         }
     }
     public class SbyteGenerator : TypedValueGenerator<sbyte>

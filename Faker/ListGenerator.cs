@@ -4,16 +4,18 @@ using System.Text;
 
 namespace Faker
 {
-    public class ListGenerator : IValueGenerator
+    public class ListGenerator<T> : TypedValueGenerator<List<T>>
     {
-        public bool CanGenerate(Type type)
+        protected override List<T> Generate(GeneratorContext context)
         {
-            throw new NotImplementedException();
-        }
+            List<T> list = new List<T>();
 
-        public object Generate(GeneratorContext context)
-        {
-            throw new NotImplementedException();
+            for (int i = 0; i < context.Random.Next(5); i++)
+            {
+                list.Add(context.Faker.Create<T>());
+            }
+
+            return list;
         }
     }
 }
