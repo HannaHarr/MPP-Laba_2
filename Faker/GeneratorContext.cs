@@ -17,9 +17,9 @@ namespace Faker
         // Даем возможность генератору использовать все возможности Faker.
         // Необходимо для создания коллекций произвольных объектов,
         // но может удобно и в некоторых других случаях.
-        public IFaker Faker { get; }
+        public Faker Faker { get; }
 
-        public GeneratorContext(Random random, Type targetType, IFaker faker)
+        public GeneratorContext(Random random, Type targetType, Faker faker)
         {
             Random = random;
             TargetType = targetType;

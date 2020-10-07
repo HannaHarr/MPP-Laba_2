@@ -67,7 +67,7 @@ namespace Faker
         {
             StringBuilder builder = new StringBuilder();
 
-            for (int i = 0; i < context.Random.Next(126); i++)
+            for (int i = 0; i < context.Random.Next(16); i++)
             {
                 builder.Append((char)context.Random.Next(char.MinValue, char.MaxValue));
             }

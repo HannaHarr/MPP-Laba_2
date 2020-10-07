@@ -11,26 +11,27 @@ namespace Faker
     {
         private const string PLUGINS = @"Plugins";
 
-        private Dictionary<Type, IValueGenerator> Generators = new Dictionary<Type, IValueGenerator>
+        private List<IValueGenerator> Generators = new List<IValueGenerator>
         {
-            [typeof(int)] = new IntegerGenerator(),
-            [typeof(bool)] = new BoolGenerator(),
-            [typeof(byte)] = new ByteGenerator(),
-            [typeof(decimal)] = new DecimalGenerator(),
-            [typeof(float)] = new FloatGenerator(),
-            [typeof(long)] = new LongGenerator(),
-            [typeof(sbyte)] = new SbyteGenerator(),
-            [typeof(short)] = new ShortGenerator(),
-            [typeof(string)] = new StringGenerator(),
-            [typeof(uint)] = new UintGenerator(),
-            [typeof(ulong)] = new UlongGenerator(),
-            [typeof(ushort)] = new UshortGenerator(),
-            [typeof(DateTime)] = new DateTimeGenerator()
+            new IntegerGenerator(),
+            new BoolGenerator(),
+            new ByteGenerator(),
+            new DecimalGenerator(),
+            new FloatGenerator(),
+            new LongGenerator(),
+            new SbyteGenerator(),
+            new ShortGenerator(),
+            new StringGenerator(),
+            new UintGenerator(),
+            new UlongGenerator(),
+            new UshortGenerator(),
+            new DateTimeGenerator(),
+            new ListGenerator()
         };
 
         public Faker()
         {
-
+            LoadPlagins();
         }
 
         private void LoadPlagins()
@@ -39,20 +40,20 @@ namespace Faker
             {
                 return;
             }
-            var dir = new DirectoryInfo(PLUGINS);
+
+            DirectoryInfo dir = new DirectoryInfo(PLUGINS);
 
             foreach (FileInfo file in dir.GetFiles())
             {
                 string fileName = Path.GetFileName(file.FullName);
-                if (fileName.Contains(".dll") && fileName.Contains("Generator"))
+                if (fileName.Contains(".dll"))
                 {
                     Assembly asm = Assembly.LoadFrom(PLUGINS + "/" + fileName);
-                    Type[] types = asm.GetTypes();
-                    foreach (Type t in types)
+                    foreach (Type t in asm.GetTypes())
                     {
-                        if (t.Name.Contains("Generator"))
+                        if (t.GetInterface("IValueGenerator") != null)
                         {
-                            Generators.Add(t.BaseType.GetGenericArguments()[0], (IValueGenerator)Activator.CreateInstance(t));
+                            Generators.Add((IValueGenerator)Activator.CreateInstance(t));
                         }
                     }
                 }
@@ -66,7 +67,7 @@ namespace Faker
         }
 
         // Метод для внутреннего использования
-        private object Create(Type t) 
+        internal object Create(Type t) 
         {
             // Процедура создания и инициализации объекта.
             object obj = null;
