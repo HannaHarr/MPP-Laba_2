@@ -8,7 +8,7 @@ namespace Faker
     {
         protected override bool Generate(GeneratorContext context)
         {
-            return context.Random.Next() > (int.MaxValue / 2);
+            return context.Random.Next(1, int.MaxValue) > (int.MaxValue / 2);
         }
     }
     
@@ -16,7 +16,7 @@ namespace Faker
     {
         protected override byte Generate(GeneratorContext context)
         {
-            return (byte)context.Random.Next();
+            return (byte)context.Random.Next(1, byte.MaxValue);
         }
     }
     public class DecimalGenerator : TypedValueGenerator<decimal>
@@ -37,28 +37,28 @@ namespace Faker
     {
         protected override int Generate(GeneratorContext context)
         {
-            return context.Random.Next();
+            return context.Random.Next(1, int.MaxValue);
         }
     }
     public class LongGenerator : TypedValueGenerator<long>
     {
         protected override long Generate(GeneratorContext context)
         {
-            return context.Random.Next();
+            return context.Random.Next(1, int.MaxValue);
         }
     }
     public class SbyteGenerator : TypedValueGenerator<sbyte>
     {
         protected override sbyte Generate(GeneratorContext context)
         {
-            return (sbyte)context.Random.Next();
+            return (sbyte)context.Random.Next(1, sbyte.MaxValue);
         }
     }
     public class ShortGenerator : TypedValueGenerator<short>
     {
         protected override short Generate(GeneratorContext context)
         {
-            return (short)context.Random.Next();
+            return (short)context.Random.Next(1, short.MaxValue);
         }
     }
     public class StringGenerator : TypedValueGenerator<string>
@@ -79,21 +79,21 @@ namespace Faker
     {
         protected override uint Generate(GeneratorContext context)
         {
-            return (uint)context.Random.Next();
+            return (uint)context.Random.Next(1, int.MaxValue);
         }
     }
     public class UlongGenerator : TypedValueGenerator<ulong>
     {
         protected override ulong Generate(GeneratorContext context)
         {
-            return (ulong)context.Random.Next();
+            return (ulong)context.Random.Next(1, int.MaxValue);
         }
     }
     public class UshortGenerator : TypedValueGenerator<ushort>
     {
         protected override ushort Generate(GeneratorContext context)
         {
-            return (ushort)context.Random.Next();
+            return (ushort)context.Random.Next(1, int.MaxValue);
         }
     }
 }

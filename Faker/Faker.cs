@@ -7,9 +7,10 @@ using System.Text;
 
 namespace Faker
 {
-    public class Faker : IFaker
+    public class Faker
     {
         private const string PLUGINS = @"Plugins";
+        private Random random;
 
         private List<IValueGenerator> Generators = new List<IValueGenerator>
         {
@@ -32,6 +33,7 @@ namespace Faker
         public Faker()
         {
             LoadPlagins();
+            random = new Random();
         }
 
         private void LoadPlagins()
@@ -67,12 +69,98 @@ namespace Faker
         }
 
         // Метод для внутреннего использования
-        internal object Create(Type t) 
+        // Процедура создания и инициализации объекта
+        internal object Create(Type type)
         {
-            // Процедура создания и инициализации объекта.
-            object obj = null;
-            return obj;
+            object obj;
+
+            // Попробовать подобрать генератор
+            if (TryChooseGenerator(type, out obj))
+            {
+                return obj;
+            }
+
+            // Получить конструкторы 
+            ConstructorInfo[] constructors = type.GetConstructors();
+
+            // Если конструктора нет, то GetDefaultValue
+            if (constructors == null)
+            {
+                return GetDefaultValue(type);
+            }
+            // Отсортировать конструкторы по количеству параметров
+            constructors.OrderByDescending(item => item.GetParameters().Length);
+
+            foreach (ConstructorInfo maxParamConstructor in constructors)
+            {
+                try
+                {
+                    // Получить параметры
+                    ParameterInfo[] parameters = maxParamConstructor.GetParameters();
+
+                    // Создать параметры
+                    object[] parametersArray = new object[parameters.Length];
+                    for (int i = 0; i < parameters.Length; i++)
+                    {
+                        parametersArray[i] = Create(parameters[i].ParameterType);
+                    }
+
+                    // Создать объект
+                    obj = maxParamConstructor.Invoke(parametersArray);
+                    FillFields(obj);
+                    FillProperties(obj);
+
+                    return obj;
+                }
+                catch { }
+            }
+
+            return GetDefaultValue(type);
         }
+
+        // Заполнить поля
+        private void FillFields(object obj)
+        {
+            FieldInfo[] fields = obj.GetType().GetFields(BindingFlags.Public);
+            foreach (FieldInfo field in fields)
+            {
+                if (field.GetValue(obj) == GetDefaultValue(field.FieldType))
+                {
+                    field.SetValue(obj, Create(field.FieldType));
+                }
+            }
+        }
+
+        // Заполнить свойства
+        private void FillProperties(object obj)
+        {
+            PropertyInfo[] properties = obj.GetType().GetProperties(BindingFlags.Public);
+            foreach (PropertyInfo property in properties)
+            {
+                if (property.CanWrite && property.SetMethod.IsPublic && (property.GetValue(obj) == GetDefaultValue(property.PropertyType)))
+                {
+                    property.SetValue(obj, Create(property.PropertyType));
+                }
+            }
+        }
+
+        // Подобрать генератор
+        private bool TryChooseGenerator(Type type, out object obj)
+        {
+            foreach (IValueGenerator generator in Generators)
+            {
+                if (generator.CanGenerate(type))
+                {
+                    GeneratorContext context = new GeneratorContext(random, type, this);
+                    obj = generator.Generate(context);
+                    return true;
+                }
+            }
+
+            obj = null;
+            return false;
+        }
+
         private static object GetDefaultValue(Type t)
         {
             if (t.IsValueType)

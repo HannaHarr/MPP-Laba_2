@@ -1,4 +1,5 @@
 ﻿using System;
+using Faker;
 
 namespace Laba_2
 {
@@ -6,6 +7,7 @@ namespace Laba_2
     {
         static void Main(string[] args)
         {
+            Faker faker = new Faker.Faker();
             Console.WriteLine("Hello World!");
         }
     }
