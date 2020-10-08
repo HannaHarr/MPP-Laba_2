@@ -7,7 +7,7 @@ namespace CharGeneratorPlagin
     {
         protected override char Generate(GeneratorContext context)
         {
-            return (char)context.Random.Next(char.MinValue, char.MaxValue);
+            return (char)context.Random.Next(char.MinValue + 1, char.MaxValue);
         }
     }
 }

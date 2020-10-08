@@ -7,8 +7,12 @@ namespace Laba_2
     {
         static void Main(string[] args)
         {
-            Faker faker = new Faker.Faker();
-            Console.WriteLine("Hello World!");
+            Faker.Faker faker = new Faker.Faker();
+
+            FirstClass first = faker.Create<FirstClass>();
+
+            Console.WriteLine(first.ToString());
+            Console.WriteLine("\n Что-то");
         }
     }
 }

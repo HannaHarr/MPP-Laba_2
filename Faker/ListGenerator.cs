@@ -45,7 +45,7 @@ namespace Faker
 
             MethodInfo add = context.TargetType.GetMethod("Add");
             
-            for (int i = 0; i < context.Random.Next(16); i++)
+            for (int i = 0; i < context.Random.Next(1, 16); i++)
             {
                 add.Invoke(obj, new object[1] { context.Faker.Create(context.TargetType.GetGenericArguments()[0]) });
             }
