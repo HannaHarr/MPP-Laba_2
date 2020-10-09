@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using Faker;
 
 namespace Laba_2
@@ -12,7 +13,6 @@ namespace Laba_2
             FirstClass first = faker.Create<FirstClass>();
 
             Console.WriteLine(first.ToString());
-            Console.WriteLine("\n Что-то");
         }
     }
 }

@@ -83,15 +83,8 @@ namespace Faker
             // Получить конструкторы 
             ConstructorInfo[] constructors = type.GetConstructors();
 
-            // Если конструктора нет, то GetDefaultValue
-            if (constructors == null)
-            {
-                return GetDefaultValue(type);
-            }
             // Отсортировать конструкторы по количеству параметров
-            constructors.OrderByDescending(item => item.GetParameters().Length);
-
-            foreach (ConstructorInfo maxParamConstructor in constructors)
+            foreach (ConstructorInfo maxParamConstructor in constructors.OrderByDescending(item => item.GetParameters().Length))
             {
                 try
                 {
@@ -112,7 +105,7 @@ namespace Faker
 
                     return obj;
                 }
-                catch { }
+                catch(Exception ex) { Console.WriteLine(ex.ToString()); }
             }
 
             return GetDefaultValue(type);
@@ -121,10 +114,11 @@ namespace Faker
         // Заполнить поля
         private void FillFields(object obj)
         {
-            FieldInfo[] fields = obj.GetType().GetFields(BindingFlags.Public);
+            //BindingFlags.Public | BindingFlags.Instance
+            FieldInfo[] fields = obj.GetType().GetFields();
             foreach (FieldInfo field in fields)
             {
-                if (field.GetValue(obj) == GetDefaultValue(field.FieldType))
+                if ((field.GetValue(obj) == null) || field.GetValue(obj).Equals(GetDefaultValue(field.FieldType)))
                 {
                     field.SetValue(obj, Create(field.FieldType));
                 }
@@ -134,10 +128,11 @@ namespace Faker
         // Заполнить свойства
         private void FillProperties(object obj)
         {
-            PropertyInfo[] properties = obj.GetType().GetProperties(BindingFlags.Public);
+            PropertyInfo[] properties = obj.GetType().GetProperties();
             foreach (PropertyInfo property in properties)
             {
-                if (property.CanWrite && property.SetMethod.IsPublic && (property.GetValue(obj) == GetDefaultValue(property.PropertyType)))
+                bool IsEquals = (property.GetValue(obj) == null) || property.GetValue(obj).Equals(GetDefaultValue(property.PropertyType));
+                if (property.CanWrite && property.SetMethod.IsPublic && IsEquals)
                 {
                     property.SetValue(obj, Create(property.PropertyType));
                 }
