@@ -11,6 +11,7 @@ namespace Faker
     {
         private const string PLUGINS = @"Plugins";
         private Random random;
+        private Stack<Type> Parents = new Stack<Type>();
 
         private List<IValueGenerator> Generators = new List<IValueGenerator>
         {
@@ -80,6 +81,13 @@ namespace Faker
                 return obj;
             }
 
+            if (Parents.Contains(type))
+            {
+                return GetDefaultValue(type);
+            }
+
+            Parents.Push(type);
+
             // Получить конструкторы 
             ConstructorInfo[] constructors = type.GetConstructors();
 
@@ -103,11 +111,13 @@ namespace Faker
                     FillFields(obj);
                     FillProperties(obj);
 
+                    Parents.Pop();
                     return obj;
                 }
                 catch(Exception ex) { Console.WriteLine(ex.ToString()); }
             }
 
+            Parents.Pop();
             return GetDefaultValue(type);
         }
 
