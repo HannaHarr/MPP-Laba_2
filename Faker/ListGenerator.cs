@@ -11,7 +11,7 @@ namespace Faker
         {
             if (type.IsGenericType)
             {
-                return type.GetGenericTypeDefinition() == typeof(List<>);
+                return type.GetGenericTypeDefinition().Equals(typeof(List<>));
             }
 
             return false;
