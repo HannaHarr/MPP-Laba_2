@@ -128,7 +128,7 @@ namespace Faker
             FieldInfo[] fields = obj.GetType().GetFields();
             foreach (FieldInfo field in fields)
             {
-                if ((field.GetValue(obj) == null) || field.GetValue(obj).Equals(GetDefaultValue(field.FieldType)))
+                if (Equals(field.GetValue(obj), GetDefaultValue(field.FieldType)))
                 {
                     field.SetValue(obj, Create(field.FieldType));
                 }
@@ -141,8 +141,7 @@ namespace Faker
             PropertyInfo[] properties = obj.GetType().GetProperties();
             foreach (PropertyInfo property in properties)
             {
-                bool IsEquals = (property.GetValue(obj) == null) || property.GetValue(obj).Equals(GetDefaultValue(property.PropertyType));
-                if (property.CanWrite && property.SetMethod.IsPublic && IsEquals)
+                if (property.CanWrite && property.SetMethod.IsPublic && Equals(property.GetValue(obj), GetDefaultValue(property.PropertyType)))
                 {
                     property.SetValue(obj, Create(property.PropertyType));
                 }
@@ -166,7 +165,7 @@ namespace Faker
             return false;
         }
 
-        // Получитьт дефолтное значение
+        // Получить дефолтное значение
         private static object GetDefaultValue(Type t)
         {
             if (t.IsValueType)

@@ -66,8 +66,9 @@ namespace Faker
         protected override string Generate(GeneratorContext context)
         {
             StringBuilder builder = new StringBuilder();
+            int count = context.Random.Next(1, 16);
 
-            for (int i = 0; i < context.Random.Next(1, 16); i++)
+            for (int i = 0; i < count; i++)
             {
                 builder.Append((char)context.Random.Next(char.MinValue + 1, char.MaxValue));
             }

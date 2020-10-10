@@ -20,9 +20,9 @@ namespace Faker
         {
             // targetType = List<int>
             IList obj = (IList) Activator.CreateInstance(context.TargetType);
-
             Type elementType = context.TargetType.GetGenericArguments()[0];
             int count = context.Random.Next(1, 16);
+
             for (int i = 0; i < count; i++)
             {
                 obj.Add(context.Faker.Create(elementType));
