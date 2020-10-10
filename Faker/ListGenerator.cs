@@ -1,7 +1,6 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
 
 namespace Faker
 {
@@ -20,13 +19,13 @@ namespace Faker
         public object Generate(GeneratorContext context)
         {
             // targetType = List<int>
-            object obj = Activator.CreateInstance(context.TargetType);
+            IList obj = (IList) Activator.CreateInstance(context.TargetType);
 
-            MethodInfo add = context.TargetType.GetMethod("Add");
-            
-            for (int i = 0; i < context.Random.Next(1, 16); i++)
+            Type elementType = context.TargetType.GetGenericArguments()[0];
+            int count = context.Random.Next(1, 16);
+            for (int i = 0; i < count; i++)
             {
-                add.Invoke(obj, new object[1] { context.Faker.Create(context.TargetType.GetGenericArguments()[0]) });
+                obj.Add(context.Faker.Create(elementType));
             }
 
             return obj;

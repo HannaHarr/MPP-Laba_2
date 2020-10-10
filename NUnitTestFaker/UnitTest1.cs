@@ -42,5 +42,17 @@ namespace NUnitTestFaker
         {
             Assert.IsNotNull(first.list, "Error: object was not created");
         }
+
+        [Test]
+        public void FirstEqualNull()
+        {
+            Assert.IsNull(first.first, "Error: object was created not default");
+        }
+
+        [Test]
+        public void DecNotEqualNull()
+        {
+            Assert.AreNotEqual(first.dec, 0m, "Error: decimal had default value");
+        }
     }
 }

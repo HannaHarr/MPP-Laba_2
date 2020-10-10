@@ -8,6 +8,8 @@ namespace Laba_2
     {
         public int integerValue;
         public DateTime time;
+        public FirstClass first;
+        public decimal dec;
         
         public int IntegerProperty { get; set; }
         public char CharProperty { get; private set; }
@@ -33,7 +35,9 @@ namespace Laba_2
                    "time: " + time + "\n" +
                    "IntegerProperty: " + IntegerProperty + "\n" +
                    "CharProperty: " + CharProperty + "\n" +
-                   "list: " + ListItem;
+                   "list: " + ListItem + "\n" +
+                   "first: " + first + "\n" + 
+                   "dec: " + dec;
         }
     }
 }
