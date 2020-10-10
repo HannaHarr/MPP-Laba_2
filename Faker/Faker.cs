@@ -114,11 +114,11 @@ namespace Faker
                     Parents.Pop();
                     return obj;
                 }
-                catch(Exception ex) { Console.WriteLine(ex.ToString()); }
+                catch { }
             }
 
             Parents.Pop();
-            return GetDefaultValue(type);
+            return null;
         }
 
         // Заполнить поля
@@ -166,6 +166,7 @@ namespace Faker
             return false;
         }
 
+        // Получитьт дефолтное значение
         private static object GetDefaultValue(Type t)
         {
             if (t.IsValueType)
